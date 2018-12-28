@@ -1,0 +1,42 @@
+use super::LispSt
+
+alphabet
+ = [a-z][A-Z]
+special_head_letter
+ = [!$%&*/:<=>?^_~]
+head_letter
+ = alphabet/special_head_letter
+number
+ = [0-9]
+special_follow_letter
+ = [+-.@]
+follow_letter
+ = head_letter/number/special_follow_letter
+identifier
+ = head_letter follow_letter*/[+-]
+true -> LispAst
+ = "#t" {LispAst::True}
+false -> LispAst
+ = "#f" {LispAst::False}
+boolean -> LispAst
+ = true / false
+letter -> String
+ = "#space"/"#newline"/"#" .
+string_element -> String
+ = [^"\\]/"\\\""/"\\"
+string -> String
+ = "\"" string_element "\""
+token -> String
+ = identifier/boolean/number/letter/string/(/)/#(/'/`/,/,@/.
+delimiter -> ()
+ = [ ()";]
+space -> ()
+ = [ \n]
+comments -> ()
+ = ";".*$
+atmosphere -> ()
+ = space/comments
+space_between_tokens -> ()
+ = atmosphere*
+sentence -> LispSt
+ = token ** atmosphere

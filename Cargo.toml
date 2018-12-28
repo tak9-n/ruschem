@@ -1,0 +1,11 @@
+[package]
+name = "ruschem"
+version = "0.1.0"
+authors = ["Takuya Hirata <hirtak2000@gmail.com>"]
+edition = "2018"
+build = "build.rs"
+
+[build-dependencies]
+peg = { version = "0.5"}
+
+[dependencies]
